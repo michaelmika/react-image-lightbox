@@ -105,6 +105,9 @@ class ReactImageLightbox extends Component {
 
       // image load error for srcType
       loadErrorStatus: {},
+
+      // play video
+      playVideo: false,
     };
 
     // Refs
@@ -1279,6 +1282,7 @@ class ReactImageLightbox extends Component {
       imageCrossOrigin,
       reactModalProps,
       loader,
+      mainVideo
     } = this.props;
     const {
       zoomLevel,
@@ -1286,6 +1290,7 @@ class ReactImageLightbox extends Component {
       offsetY,
       isClosing,
       loadErrorStatus,
+      playVideo
     } = this.state;
 
     const boxSize = this.getLightboxRect();
@@ -1391,22 +1396,57 @@ class ReactImageLightbox extends Component {
           </div>
         );
       } else {
-        images.push(
-          <img
-            {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
-            className={`${imageClass} ril__image`}
-            onDoubleClick={this.handleImageDoubleClick}
-            onWheel={this.handleImageMouseWheel}
-            onDragStart={e => e.preventDefault()}
-            style={imageStyle}
-            src={imageSrc}
-            key={imageSrc + keyEndings[srcType]}
-            alt={
-              typeof imageTitle === 'string' ? imageTitle : translate('Image')
-            }
-            draggable={false}
-          />
-        );
+        if(mainVideo){
+          // Is Video
+          if(playVideo){
+            images.push(
+              <video controls>
+                <source src={mainVideo.src} type={mainVideo.mimeType} />
+              </video>
+            );
+          }else{
+            images.push(
+              <>
+                <img
+                  {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
+                  className={`${imageClass} ril__image`}
+                  onDoubleClick={this.handleImageDoubleClick}
+                  onWheel={this.handleImageMouseWheel}
+                  onDragStart={e => e.preventDefault()}
+                  style={imageStyle}
+                  src={imageSrc}
+                  key={imageSrc + keyEndings[srcType]}
+                  alt={
+                    typeof imageTitle === 'string' ? imageTitle : translate('Image')
+                  }
+                  draggable={false}
+                  onClick={() => this.setState({playVideo: true})}
+                />
+                <div className={"ril__playIcon"} onClick={() => this.setState({playVideo: true})}>
+                  <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M23 12l-22 12v-24l22 12zm-21 10.315l18.912-10.315-18.912-10.315v20.63z"/></svg>
+                </div>
+              </>
+            );
+          }
+
+        }else{
+          images.push(
+            <img
+              {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
+              className={`${imageClass} ril__image`}
+              onDoubleClick={this.handleImageDoubleClick}
+              onWheel={this.handleImageMouseWheel}
+              onDragStart={e => e.preventDefault()}
+              style={imageStyle}
+              src={imageSrc}
+              key={imageSrc + keyEndings[srcType]}
+              alt={
+                typeof imageTitle === 'string' ? imageTitle : translate('Image')
+              }
+              draggable={false}
+            />
+          );
+        }
       }
     };
 
@@ -1644,6 +1684,11 @@ ReactImageLightbox.propTypes = {
   // Next display image url (displayed to the right)
   // If left undefined, moveNext actions will not be performed, and the button not displayed
   nextSrc: PropTypes.string,
+
+  mainVideo: PropTypes.shape({
+    src: PropTypes.string,
+    mimeType: PropTypes.string
+  }),
 
   //-----------------------------
   // Image thumbnail sources

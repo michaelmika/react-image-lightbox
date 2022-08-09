@@ -1282,7 +1282,7 @@ class ReactImageLightbox extends Component {
       imageCrossOrigin,
       reactModalProps,
       loader,
-      mainVideo
+      mainVideo,
     } = this.props;
     const {
       zoomLevel,
@@ -1290,7 +1290,7 @@ class ReactImageLightbox extends Component {
       offsetY,
       isClosing,
       loadErrorStatus,
-      playVideo
+      playVideo,
     } = this.state;
 
     const boxSize = this.getLightboxRect();
@@ -1395,58 +1395,70 @@ class ReactImageLightbox extends Component {
             <div className="ril-download-blocker ril__downloadBlocker" />
           </div>
         );
-      } else {
-        if(mainVideo){
-          // Is Video
-          if(playVideo){
-            images.push(
+      } else if (mainVideo && srcType === 'mainSrc') {
+        // Is Video
+        if (playVideo) {
+          images.push(
+            <div className={`${imageClass} ril__image`}>
               <video controls>
                 <source src={mainVideo.src} type={mainVideo.mimeType} />
               </video>
-            );
-          }else{
-            images.push(
-              <>
-                <img
-                  {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
-                  className={`${imageClass} ril__image`}
-                  onDoubleClick={this.handleImageDoubleClick}
-                  onWheel={this.handleImageMouseWheel}
-                  onDragStart={e => e.preventDefault()}
-                  style={imageStyle}
-                  src={imageSrc}
-                  key={imageSrc + keyEndings[srcType]}
-                  alt={
-                    typeof imageTitle === 'string' ? imageTitle : translate('Image')
-                  }
-                  draggable={false}
-                  onClick={() => this.setState({playVideo: true})}
-                />
-                <div className={"ril__playIcon"} onClick={() => this.setState({playVideo: true})}>
-                  <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M23 12l-22 12v-24l22 12zm-21 10.315l18.912-10.315-18.912-10.315v20.63z"/></svg>
-                </div>
-              </>
-            );
-          }
-
-        }else{
+            </div>
+          );
+        } else {
           images.push(
-            <img
-              {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
-              className={`${imageClass} ril__image`}
-              onDoubleClick={this.handleImageDoubleClick}
-              onWheel={this.handleImageMouseWheel}
-              onDragStart={e => e.preventDefault()}
-              style={imageStyle}
-              src={imageSrc}
-              key={imageSrc + keyEndings[srcType]}
-              alt={
-                typeof imageTitle === 'string' ? imageTitle : translate('Image')
-              }
-              draggable={false}
-            />
+            <>
+              <img
+                {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
+                className={`${imageClass} ril__image`}
+                onDoubleClick={this.handleImageDoubleClick}
+                onWheel={this.handleImageMouseWheel}
+                onDragStart={e => e.preventDefault()}
+                style={imageStyle}
+                src={imageSrc}
+                key={imageSrc + keyEndings[srcType]}
+                alt={
+                  typeof imageTitle === 'string'
+                    ? imageTitle
+                    : translate('Image')
+                }
+                draggable={false}
+                onClick={() => this.setState({ playVideo: true })}
+              />
+              <div
+                className="ril__playIcon"
+                onClick={() => this.setState({ playVideo: true })}
+              >
+                <svg
+                  width="50"
+                  height="50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                >
+                  <path d="M23 12l-22 12v-24l22 12zm-21 10.315l18.912-10.315-18.912-10.315v20.63z" />
+                </svg>
+              </div>
+            </>
           );
         }
+      } else {
+        images.push(
+          <img
+            {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
+            className={`${imageClass} ril__image`}
+            onDoubleClick={this.handleImageDoubleClick}
+            onWheel={this.handleImageMouseWheel}
+            onDragStart={e => e.preventDefault()}
+            style={imageStyle}
+            src={imageSrc}
+            key={imageSrc + keyEndings[srcType]}
+            alt={
+              typeof imageTitle === 'string' ? imageTitle : translate('Image')
+            }
+            draggable={false}
+          />
+        );
       }
     };
 
@@ -1687,7 +1699,7 @@ ReactImageLightbox.propTypes = {
 
   mainVideo: PropTypes.shape({
     src: PropTypes.string,
-    mimeType: PropTypes.string
+    mimeType: PropTypes.string,
   }),
 
   //-----------------------------
@@ -1834,6 +1846,7 @@ ReactImageLightbox.defaultProps = {
   keyRepeatKeyupBonus: 40,
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
+  mainVideo: null,
   nextLabel: 'Next image',
   nextSrc: null,
   nextSrcThumbnail: null,

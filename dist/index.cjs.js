@@ -2018,11 +2018,15 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                   })
                 )
               );
-            } else {
-              if (mainVideo) {
-                // Is Video
-                if (playVideo) {
-                  images.push(
+            } else if (mainVideo && srcType === 'mainSrc') {
+              // Is Video
+              if (playVideo) {
+                images.push(
+                  /*#__PURE__*/ React__default['default'].createElement(
+                    'div',
+                    {
+                      className: ''.concat(imageClass, ' ril__image'),
+                    },
                     /*#__PURE__*/ React__default['default'].createElement(
                       'video',
                       {
@@ -2036,106 +2040,106 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                         }
                       )
                     )
-                  );
-                } else {
-                  images.push(
+                  )
+                );
+              } else {
+                images.push(
+                  /*#__PURE__*/ React__default['default'].createElement(
+                    React__default['default'].Fragment,
+                    null,
                     /*#__PURE__*/ React__default['default'].createElement(
-                      React__default['default'].Fragment,
-                      null,
-                      /*#__PURE__*/ React__default['default'].createElement(
-                        'img',
-                        _extends(
-                          {},
-                          imageCrossOrigin
-                            ? {
-                                crossOrigin: imageCrossOrigin,
-                              }
-                            : {},
-                          {
-                            className: ''.concat(imageClass, ' ril__image'),
-                            onDoubleClick: _this17.handleImageDoubleClick,
-                            onWheel: _this17.handleImageMouseWheel,
-                            onDragStart: function onDragStart(e) {
-                              return e.preventDefault();
-                            },
-                            style: imageStyle,
-                            src: imageSrc,
-                            key: imageSrc + keyEndings[srcType],
-                            alt:
-                              typeof imageTitle === 'string'
-                                ? imageTitle
-                                : translate('Image'),
-                            draggable: false,
-                            onClick: function onClick() {
-                              return _this17.setState({
-                                playVideo: true,
-                              });
-                            },
-                          }
-                        )
-                      ),
-                      /*#__PURE__*/ React__default['default'].createElement(
-                        'div',
+                      'img',
+                      _extends(
+                        {},
+                        imageCrossOrigin
+                          ? {
+                              crossOrigin: imageCrossOrigin,
+                            }
+                          : {},
                         {
-                          className: 'ril__playIcon',
+                          className: ''.concat(imageClass, ' ril__image'),
+                          onDoubleClick: _this17.handleImageDoubleClick,
+                          onWheel: _this17.handleImageMouseWheel,
+                          onDragStart: function onDragStart(e) {
+                            return e.preventDefault();
+                          },
+                          style: imageStyle,
+                          src: imageSrc,
+                          key: imageSrc + keyEndings[srcType],
+                          alt:
+                            typeof imageTitle === 'string'
+                              ? imageTitle
+                              : translate('Image'),
+                          draggable: false,
                           onClick: function onClick() {
                             return _this17.setState({
                               playVideo: true,
                             });
                           },
+                        }
+                      )
+                    ),
+                    /*#__PURE__*/ React__default['default'].createElement(
+                      'div',
+                      {
+                        className: 'ril__playIcon',
+                        onClick: function onClick() {
+                          return _this17.setState({
+                            playVideo: true,
+                          });
+                        },
+                      },
+                      /*#__PURE__*/ React__default['default'].createElement(
+                        'svg',
+                        {
+                          width: '50',
+                          height: '50',
+                          xmlns: 'http://www.w3.org/2000/svg',
+                          fillRule: 'evenodd',
+                          clipRule: 'evenodd',
                         },
                         /*#__PURE__*/ React__default['default'].createElement(
-                          'svg',
+                          'path',
                           {
-                            width: '50',
-                            height: '50',
-                            xmlns: 'http://www.w3.org/2000/svg',
-                            'fill-rule': 'evenodd',
-                            'clip-rule': 'evenodd',
-                          },
-                          /*#__PURE__*/ React__default['default'].createElement(
-                            'path',
-                            {
-                              d:
-                                'M23 12l-22 12v-24l22 12zm-21 10.315l18.912-10.315-18.912-10.315v20.63z',
-                            }
-                          )
+                            d:
+                              'M23 12l-22 12v-24l22 12zm-21 10.315l18.912-10.315-18.912-10.315v20.63z',
+                          }
                         )
                       )
-                    )
-                  );
-                }
-              } else {
-                images.push(
-                  /*#__PURE__*/ React__default['default'].createElement(
-                    'img',
-                    _extends(
-                      {},
-                      imageCrossOrigin
-                        ? {
-                            crossOrigin: imageCrossOrigin,
-                          }
-                        : {},
-                      {
-                        className: ''.concat(imageClass, ' ril__image'),
-                        onDoubleClick: _this17.handleImageDoubleClick,
-                        onWheel: _this17.handleImageMouseWheel,
-                        onDragStart: function onDragStart(e) {
-                          return e.preventDefault();
-                        },
-                        style: imageStyle,
-                        src: imageSrc,
-                        key: imageSrc + keyEndings[srcType],
-                        alt:
-                          typeof imageTitle === 'string'
-                            ? imageTitle
-                            : translate('Image'),
-                        draggable: false,
-                      }
                     )
                   )
                 );
               }
+            } else {
+              images.push(
+                /*#__PURE__*/ React__default['default'].createElement(
+                  'img',
+                  _extends(
+                    {},
+                    imageCrossOrigin
+                      ? {
+                          crossOrigin: imageCrossOrigin,
+                        }
+                      : {},
+                    {
+                      className: ''.concat(imageClass, ' ril__image'),
+                      onDoubleClick: _this17.handleImageDoubleClick,
+                      onWheel: _this17.handleImageMouseWheel,
+                      onDragStart: function onDragStart(e) {
+                        return e.preventDefault();
+                      },
+                      style: imageStyle,
+                      src: imageSrc,
+                      key: imageSrc + keyEndings[srcType],
+                      alt:
+                        typeof imageTitle === 'string'
+                          ? imageTitle
+                          : translate('Image'),
+                      draggable: false,
+                    }
+                  )
+                )
+              );
             }
           };
 
@@ -2646,6 +2650,7 @@ ReactImageLightbox.defaultProps = {
   keyRepeatKeyupBonus: 40,
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
+  mainVideo: null,
   nextLabel: 'Next image',
   nextSrc: null,
   nextSrcThumbnail: null,

@@ -1875,7 +1875,8 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
             imageCrossOrigin = _this$props.imageCrossOrigin,
             reactModalProps = _this$props.reactModalProps,
             loader = _this$props.loader,
-            mainVideo = _this$props.mainVideo;
+            mainVideo = _this$props.mainVideo,
+            imagePreviewForVideos = _this$props.imagePreviewForVideos;
           var _this$state = this.state,
             zoomLevel = _this$state.zoomLevel,
             offsetX = _this$state.offsetX,
@@ -2020,25 +2021,20 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
               );
             } else if (mainVideo && srcType === 'mainSrc') {
               // Is Video
-              if (playVideo) {
+              if (!imagePreviewForVideos || playVideo) {
                 images.push(
                   /*#__PURE__*/ React__default['default'].createElement(
-                    'div',
+                    'video',
                     {
+                      controls: true,
                       className: ''.concat(imageClass, ' ril__image'),
                     },
                     /*#__PURE__*/ React__default['default'].createElement(
-                      'video',
+                      'source',
                       {
-                        controls: true,
-                      },
-                      /*#__PURE__*/ React__default['default'].createElement(
-                        'source',
-                        {
-                          src: mainVideo.src,
-                          type: mainVideo.mimeType,
-                        }
-                      )
+                        src: mainVideo.src,
+                        type: mainVideo.mimeType,
+                      }
                     )
                   )
                 );
@@ -2097,6 +2093,7 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                           xmlns: 'http://www.w3.org/2000/svg',
                           fillRule: 'evenodd',
                           clipRule: 'evenodd',
+                          fill: 'white',
                         },
                         /*#__PURE__*/ React__default['default'].createElement(
                           'path',
@@ -2537,6 +2534,7 @@ ReactImageLightbox.propTypes = {
     src: PropTypes__default['default'].string,
     mimeType: PropTypes__default['default'].string,
   }),
+  imagePreviewForVideos: PropTypes__default['default'].bool,
   //-----------------------------
   // Image thumbnail sources
   //-----------------------------
@@ -2651,6 +2649,7 @@ ReactImageLightbox.defaultProps = {
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
   mainVideo: null,
+  imagePreviewForVideos: false,
   nextLabel: 'Next image',
   nextSrc: null,
   nextSrcThumbnail: null,

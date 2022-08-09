@@ -1283,6 +1283,7 @@ class ReactImageLightbox extends Component {
       reactModalProps,
       loader,
       mainVideo,
+      imagePreviewForVideos,
     } = this.props;
     const {
       zoomLevel,
@@ -1397,13 +1398,11 @@ class ReactImageLightbox extends Component {
         );
       } else if (mainVideo && srcType === 'mainSrc') {
         // Is Video
-        if (playVideo) {
+        if (!imagePreviewForVideos || playVideo) {
           images.push(
-            <div className={`${imageClass} ril__image`}>
-              <video controls>
-                <source src={mainVideo.src} type={mainVideo.mimeType} />
-              </video>
-            </div>
+            <video controls className={`${imageClass} ril__image`}>
+              <source src={mainVideo.src} type={mainVideo.mimeType} />
+            </video>
           );
         } else {
           images.push(
@@ -1435,6 +1434,7 @@ class ReactImageLightbox extends Component {
                   xmlns="http://www.w3.org/2000/svg"
                   fillRule="evenodd"
                   clipRule="evenodd"
+                  fill="white"
                 >
                   <path d="M23 12l-22 12v-24l22 12zm-21 10.315l18.912-10.315-18.912-10.315v20.63z" />
                 </svg>
@@ -1701,6 +1701,7 @@ ReactImageLightbox.propTypes = {
     src: PropTypes.string,
     mimeType: PropTypes.string,
   }),
+  imagePreviewForVideos: PropTypes.bool,
 
   //-----------------------------
   // Image thumbnail sources
@@ -1847,6 +1848,7 @@ ReactImageLightbox.defaultProps = {
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
   mainVideo: null,
+  imagePreviewForVideos: false,
   nextLabel: 'Next image',
   nextSrc: null,
   nextSrcThumbnail: null,

@@ -1545,7 +1545,7 @@ class ReactImageLightbox extends Component {
                 {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
                 controls
                 autoPlay
-                className={`${imageClass} ril__image ril__video`}
+                className={`ril-image-current ril__image ril__video`}
                 {...(videoProps || {})}
               >
                 <source src={mainSrcVideo.src} type={mainSrcVideo.mimeType} />

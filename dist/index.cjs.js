@@ -2241,10 +2241,7 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                       {
                         controls: true,
                         autoPlay: true,
-                        className: ''.concat(
-                          imageClass,
-                          ' ril__image ril__video'
-                        ),
+                        className: 'ril-image-current ril__image ril__video',
                       },
                       videoProps || {}
                     ),

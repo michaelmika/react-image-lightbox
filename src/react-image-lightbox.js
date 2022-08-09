@@ -1283,7 +1283,9 @@ class ReactImageLightbox extends Component {
       imageCrossOrigin,
       reactModalProps,
       loader,
-      mainVideo,
+      mainSrcVideo,
+      nextSrcVideo,
+      prevSrcVideo,
       imagePreviewForVideos,
       videoProps,
     } = this.props;
@@ -1398,9 +1400,9 @@ class ReactImageLightbox extends Component {
             <div className="ril-download-blocker ril__downloadBlocker" />
           </div>
         );
-      } else if (mainVideo) {
+      } else if (this.props[srcType + 'Video']) {
         // Is Video
-        if (srcType === 'mainSrc' && (!imagePreviewForVideos || playVideo)) {
+        if (!imagePreviewForVideos || playVideo) {
           images.push(
             <video
               {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
@@ -1409,7 +1411,10 @@ class ReactImageLightbox extends Component {
               className={`${imageClass} ril__image ril__video`}
               {...(videoProps || {})}
             >
-              <source src={mainVideo.src} type={mainVideo.mimeType} />
+              <source
+                src={this.props[srcType + 'Video'].src}
+                type={this.props[srcType + 'Video'].mimeType}
+              />
             </video>
           );
         } else {
@@ -1705,7 +1710,15 @@ ReactImageLightbox.propTypes = {
   // If left undefined, moveNext actions will not be performed, and the button not displayed
   nextSrc: PropTypes.string,
 
-  mainVideo: PropTypes.shape({
+  mainSrcVideo: PropTypes.shape({
+    src: PropTypes.string,
+    mimeType: PropTypes.string,
+  }),
+  nextSrcVideo: PropTypes.shape({
+    src: PropTypes.string,
+    mimeType: PropTypes.string,
+  }),
+  prevSrcVideo: PropTypes.shape({
     src: PropTypes.string,
     mimeType: PropTypes.string,
   }),
@@ -1855,7 +1868,9 @@ ReactImageLightbox.defaultProps = {
   keyRepeatKeyupBonus: 40,
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
-  mainVideo: null,
+  mainSrcVideo: null,
+  nextSrcVideo: null,
+  prevSrcVideo: null,
   videoProps: {},
   imagePreviewForVideos: false,
   nextLabel: 'Next image',

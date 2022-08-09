@@ -1864,9 +1864,11 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
             _onAfterOpen = _this$props.onAfterOpen,
             imageCrossOrigin = _this$props.imageCrossOrigin,
             reactModalProps = _this$props.reactModalProps,
-            loader = _this$props.loader,
-            mainVideo = _this$props.mainVideo,
-            imagePreviewForVideos = _this$props.imagePreviewForVideos,
+            loader = _this$props.loader;
+          _this$props.mainSrcVideo;
+          _this$props.nextSrcVideo;
+          _this$props.prevSrcVideo;
+          var imagePreviewForVideos = _this$props.imagePreviewForVideos,
             videoProps = _this$props.videoProps;
           var _this$state = this.state,
             zoomLevel = _this$state.zoomLevel,
@@ -2008,12 +2010,9 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                   })
                 )
               );
-            } else if (mainVideo) {
+            } else if (_this17.props[srcType + 'Video']) {
               // Is Video
-              if (
-                srcType === 'mainSrc' &&
-                (!imagePreviewForVideos || playVideo)
-              ) {
+              if (!imagePreviewForVideos || playVideo) {
                 images.push(
                   /*#__PURE__*/ React.createElement(
                     'video',
@@ -2035,8 +2034,8 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                       videoProps || {}
                     ),
                     /*#__PURE__*/ React.createElement('source', {
-                      src: mainVideo.src,
-                      type: mainVideo.mimeType,
+                      src: _this17.props[srcType + 'Video'].src,
+                      type: _this17.props[srcType + 'Video'].mimeType,
                     })
                   )
                 );
@@ -2513,7 +2512,15 @@ ReactImageLightbox.propTypes = {
   // Next display image url (displayed to the right)
   // If left undefined, moveNext actions will not be performed, and the button not displayed
   nextSrc: PropTypes.string,
-  mainVideo: PropTypes.shape({
+  mainSrcVideo: PropTypes.shape({
+    src: PropTypes.string,
+    mimeType: PropTypes.string,
+  }),
+  nextSrcVideo: PropTypes.shape({
+    src: PropTypes.string,
+    mimeType: PropTypes.string,
+  }),
+  prevSrcVideo: PropTypes.shape({
     src: PropTypes.string,
     mimeType: PropTypes.string,
   }),
@@ -2630,7 +2637,9 @@ ReactImageLightbox.defaultProps = {
   keyRepeatKeyupBonus: 40,
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
-  mainVideo: null,
+  mainSrcVideo: null,
+  nextSrcVideo: null,
+  prevSrcVideo: null,
   videoProps: {},
   imagePreviewForVideos: false,
   nextLabel: 'Next image',

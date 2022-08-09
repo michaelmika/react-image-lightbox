@@ -1865,10 +1865,9 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
             imageCrossOrigin = _this$props.imageCrossOrigin,
             reactModalProps = _this$props.reactModalProps,
             loader = _this$props.loader,
-            mainSrcVideo = _this$props.mainSrcVideo;
-          _this$props.nextSrcVideo;
-          _this$props.prevSrcVideo;
-          var imagePreviewForVideos = _this$props.imagePreviewForVideos,
+            mainVideoSrc = _this$props.mainVideoSrc,
+            mainVideoType = _this$props.mainVideoType,
+            imagePreviewForVideos = _this$props.imagePreviewForVideos,
             videoProps = _this$props.videoProps;
           var _this$state = this.state,
             zoomLevel = _this$state.zoomLevel,
@@ -2209,7 +2208,7 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                     : undefined,
                 },
                 images,
-                mainSrcVideo &&
+                mainVideoSrc &&
                   (!imagePreviewForVideos || playVideo) &&
                   /*#__PURE__*/ React.createElement(
                     'video',
@@ -2221,6 +2220,7 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                           }
                         : {},
                       {
+                        key: mainVideoSrc,
                         controls: true,
                         autoPlay: true,
                         className: 'ril-image-current ril__image ril__video',
@@ -2228,8 +2228,8 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                       videoProps || {}
                     ),
                     /*#__PURE__*/ React.createElement('source', {
-                      src: mainSrcVideo.src,
-                      type: mainSrcVideo.mimeType,
+                      src: mainVideoSrc,
+                      type: mainVideoType,
                     })
                   )
               ),
@@ -2507,18 +2507,8 @@ ReactImageLightbox.propTypes = {
   // Next display image url (displayed to the right)
   // If left undefined, moveNext actions will not be performed, and the button not displayed
   nextSrc: PropTypes.string,
-  mainSrcVideo: PropTypes.shape({
-    src: PropTypes.string,
-    mimeType: PropTypes.string,
-  }),
-  nextSrcVideo: PropTypes.shape({
-    src: PropTypes.string,
-    mimeType: PropTypes.string,
-  }),
-  prevSrcVideo: PropTypes.shape({
-    src: PropTypes.string,
-    mimeType: PropTypes.string,
-  }),
+  mainVideoSrc: PropTypes.string,
+  mainVideoType: PropTypes.string,
   imagePreviewForVideos: PropTypes.bool,
   videoProps: PropTypes.shape({}),
   //-----------------------------
@@ -2632,9 +2622,8 @@ ReactImageLightbox.defaultProps = {
   keyRepeatKeyupBonus: 40,
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
-  mainSrcVideo: null,
-  nextSrcVideo: null,
-  prevSrcVideo: null,
+  mainVideoSrc: null,
+  mainVideoType: null,
   videoProps: {},
   imagePreviewForVideos: false,
   nextLabel: 'Next image',

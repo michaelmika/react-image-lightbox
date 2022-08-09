@@ -1283,9 +1283,8 @@ class ReactImageLightbox extends Component {
       imageCrossOrigin,
       reactModalProps,
       loader,
-      mainSrcVideo,
-      nextSrcVideo,
-      prevSrcVideo,
+      mainVideoSrc,
+      mainVideoType,
       imagePreviewForVideos,
       videoProps,
     } = this.props;
@@ -1541,15 +1540,16 @@ class ReactImageLightbox extends Component {
             onClick={clickOutsideToClose ? this.closeIfClickInner : undefined}
           >
             {images}
-            {mainSrcVideo && (!imagePreviewForVideos || playVideo) && (
+            {mainVideoSrc && (!imagePreviewForVideos || playVideo) && (
               <video
                 {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
+                key={mainVideoSrc}
                 controls
                 autoPlay
                 className={`ril-image-current ril__image ril__video`}
                 {...(videoProps || {})}
               >
-                <source src={mainSrcVideo.src} type={mainSrcVideo.mimeType} />
+                <source src={mainVideoSrc} type={mainVideoType} />
               </video>
             )}
           </div>
@@ -1704,18 +1704,9 @@ ReactImageLightbox.propTypes = {
   // If left undefined, moveNext actions will not be performed, and the button not displayed
   nextSrc: PropTypes.string,
 
-  mainSrcVideo: PropTypes.shape({
-    src: PropTypes.string,
-    mimeType: PropTypes.string,
-  }),
-  nextSrcVideo: PropTypes.shape({
-    src: PropTypes.string,
-    mimeType: PropTypes.string,
-  }),
-  prevSrcVideo: PropTypes.shape({
-    src: PropTypes.string,
-    mimeType: PropTypes.string,
-  }),
+  mainVideoSrc: PropTypes.string,
+  mainVideoType: PropTypes.string,
+
   imagePreviewForVideos: PropTypes.bool,
   videoProps: PropTypes.shape({}),
   //-----------------------------
@@ -1862,9 +1853,8 @@ ReactImageLightbox.defaultProps = {
   keyRepeatKeyupBonus: 40,
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
-  mainSrcVideo: null,
-  nextSrcVideo: null,
-  prevSrcVideo: null,
+  mainVideoSrc: null,
+  mainVideoType: null,
   videoProps: {},
   imagePreviewForVideos: false,
   nextLabel: 'Next image',

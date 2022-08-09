@@ -2071,6 +2071,7 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                           playVideo: true,
                         });
                       },
+                      style: imageStyle,
                     },
                     /*#__PURE__*/ React__default['default'].createElement(
                       'svg',
@@ -2228,7 +2229,8 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                     : undefined,
                 },
                 images,
-                ((mainSrcVideo && !imagePreviewForVideos) || playVideo) &&
+                mainSrcVideo &&
+                  (!imagePreviewForVideos || playVideo) &&
                   /*#__PURE__*/ React__default['default'].createElement(
                     'video',
                     _extends(

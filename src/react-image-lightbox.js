@@ -1423,6 +1423,7 @@ class ReactImageLightbox extends Component {
             <div
               className="ril__playIcon"
               onClick={() => this.setState({ playVideo: true })}
+              style={imageStyle}
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
                 <polygon
@@ -1540,7 +1541,7 @@ class ReactImageLightbox extends Component {
             onClick={clickOutsideToClose ? this.closeIfClickInner : undefined}
           >
             {images}
-            {((mainSrcVideo && !imagePreviewForVideos) || playVideo) && (
+            {mainSrcVideo && (!imagePreviewForVideos || playVideo) && (
               <video
                 {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
                 controls

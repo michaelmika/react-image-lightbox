@@ -1400,7 +1400,7 @@ class ReactImageLightbox extends Component {
         // Is Video
         if (!imagePreviewForVideos || playVideo) {
           images.push(
-            <video controls className={`${imageClass} ril__image`}>
+            <video controls className={`${imageClass} ril__image ril__video`}>
               <source src={mainVideo.src} type={mainVideo.mimeType} />
             </video>
           );

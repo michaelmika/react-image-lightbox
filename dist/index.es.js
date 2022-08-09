@@ -2013,7 +2013,10 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                     'video',
                     {
                       controls: true,
-                      className: ''.concat(imageClass, ' ril__image'),
+                      className: ''.concat(
+                        imageClass,
+                        ' ril__image ril__video'
+                      ),
                     },
                     /*#__PURE__*/ React.createElement('source', {
                       src: mainVideo.src,

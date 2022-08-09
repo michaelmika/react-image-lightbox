@@ -1398,9 +1398,9 @@ class ReactImageLightbox extends Component {
             <div className="ril-download-blocker ril__downloadBlocker" />
           </div>
         );
-      } else if (mainVideo && srcType === 'mainSrc') {
+      } else if (mainVideo) {
         // Is Video
-        if (!imagePreviewForVideos || playVideo) {
+        if (srcType === 'mainSrc' && (!imagePreviewForVideos || playVideo)) {
           images.push(
             <video
               {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}

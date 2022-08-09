@@ -2022,9 +2022,12 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                   })
                 )
               );
-            } else if (mainVideo && srcType === 'mainSrc') {
+            } else if (mainVideo) {
               // Is Video
-              if (!imagePreviewForVideos || playVideo) {
+              if (
+                srcType === 'mainSrc' &&
+                (!imagePreviewForVideos || playVideo)
+              ) {
                 images.push(
                   /*#__PURE__*/ React__default['default'].createElement(
                     'video',

@@ -1876,8 +1876,8 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
             _onAfterOpen = _this$props.onAfterOpen,
             imageCrossOrigin = _this$props.imageCrossOrigin,
             reactModalProps = _this$props.reactModalProps,
-            loader = _this$props.loader;
-          _this$props.mainSrcVideo;
+            loader = _this$props.loader,
+            mainSrcVideo = _this$props.mainSrcVideo;
           _this$props.nextSrcVideo;
           _this$props.prevSrcVideo;
           var imagePreviewForVideos = _this$props.imagePreviewForVideos,
@@ -2026,10 +2026,12 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
               );
             } else if (_this17.props[srcType + 'Video']) {
               // Is Video
-              if (!imagePreviewForVideos || playVideo) {
-                images.push(
+              images.push(
+                /*#__PURE__*/ React__default['default'].createElement(
+                  React__default['default'].Fragment,
+                  null,
                   /*#__PURE__*/ React__default['default'].createElement(
-                    'video',
+                    'img',
                     _extends(
                       {},
                       imageCrossOrigin
@@ -2038,97 +2040,63 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                           }
                         : {},
                       {
-                        controls: true,
-                        autoPlay: true,
-                        className: ''.concat(
-                          imageClass,
-                          ' ril__image ril__video'
-                        ),
-                      },
-                      videoProps || {}
-                    ),
-                    /*#__PURE__*/ React__default['default'].createElement(
-                      'source',
-                      {
-                        src: _this17.props[srcType + 'Video'].src,
-                        type: _this17.props[srcType + 'Video'].mimeType,
-                      }
-                    )
-                  )
-                );
-              } else {
-                images.push(
-                  /*#__PURE__*/ React__default['default'].createElement(
-                    React__default['default'].Fragment,
-                    null,
-                    /*#__PURE__*/ React__default['default'].createElement(
-                      'img',
-                      _extends(
-                        {},
-                        imageCrossOrigin
-                          ? {
-                              crossOrigin: imageCrossOrigin,
-                            }
-                          : {},
-                        {
-                          className: ''.concat(imageClass, ' ril__image'),
-                          onDoubleClick: _this17.handleImageDoubleClick,
-                          onWheel: _this17.handleImageMouseWheel,
-                          onDragStart: function onDragStart(e) {
-                            return e.preventDefault();
-                          },
-                          style: imageStyle,
-                          src: imageSrc,
-                          key: imageSrc + keyEndings[srcType],
-                          alt:
-                            typeof imageTitle === 'string'
-                              ? imageTitle
-                              : translate('Image'),
-                          draggable: false,
-                          onClick: function onClick() {
-                            return _this17.setState({
-                              playVideo: true,
-                            });
-                          },
-                        }
-                      )
-                    ),
-                    /*#__PURE__*/ React__default['default'].createElement(
-                      'div',
-                      {
-                        className: 'ril__playIcon',
+                        className: ''.concat(imageClass, ' ril__image'),
+                        onDoubleClick: _this17.handleImageDoubleClick,
+                        onWheel: _this17.handleImageMouseWheel,
+                        onDragStart: function onDragStart(e) {
+                          return e.preventDefault();
+                        },
+                        style: imageStyle,
+                        src: imageSrc,
+                        key: imageSrc + keyEndings[srcType],
+                        alt:
+                          typeof imageTitle === 'string'
+                            ? imageTitle
+                            : translate('Image'),
+                        draggable: false,
                         onClick: function onClick() {
                           return _this17.setState({
                             playVideo: true,
                           });
                         },
+                      }
+                    )
+                  ),
+                  /*#__PURE__*/ React__default['default'].createElement(
+                    'div',
+                    {
+                      className: 'ril__playIcon',
+                      onClick: function onClick() {
+                        return _this17.setState({
+                          playVideo: true,
+                        });
+                      },
+                    },
+                    /*#__PURE__*/ React__default['default'].createElement(
+                      'svg',
+                      {
+                        xmlns: 'http://www.w3.org/2000/svg',
+                        viewBox: '0 0 26 26',
                       },
                       /*#__PURE__*/ React__default['default'].createElement(
-                        'svg',
+                        'polygon',
                         {
-                          xmlns: 'http://www.w3.org/2000/svg',
-                          viewBox: '0 0 26 26',
-                        },
-                        /*#__PURE__*/ React__default['default'].createElement(
-                          'polygon',
-                          {
-                            className: 'ril__playIcon__svg',
-                            points: '9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69',
-                          }
-                        ),
-                        /*#__PURE__*/ React__default['default'].createElement(
-                          'path',
-                          {
-                            className: 'ril__playIcon__svg',
-                            d:
-                              'M26,13A13,13,0,1,1,13,0,13,13,0,0,1,26,13ZM13,2.18A10.89,10.89,0,1,0,23.84,13.06,10.89,10.89,0,0,0,13,2.18Z',
-                          }
-                        )
+                          className: 'ril__playIcon__svg',
+                          points: '9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69',
+                        }
+                      ),
+                      /*#__PURE__*/ React__default['default'].createElement(
+                        'path',
+                        {
+                          className: 'ril__playIcon__svg',
+                          d:
+                            'M26,13A13,13,0,1,1,13,0,13,13,0,0,1,26,13ZM13,2.18A10.89,10.89,0,1,0,23.84,13.06,10.89,10.89,0,0,0,13,2.18Z',
+                        }
                       )
                     )
                   )
-                );
-              }
+                )
+              );
             } else {
               images.push(
                 /*#__PURE__*/ React__default['default'].createElement(
@@ -2259,7 +2227,35 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                     ? this.closeIfClickInner
                     : undefined,
                 },
-                images
+                images,
+                ((mainSrcVideo && !imagePreviewForVideos) || playVideo) &&
+                  /*#__PURE__*/ React__default['default'].createElement(
+                    'video',
+                    _extends(
+                      {},
+                      imageCrossOrigin
+                        ? {
+                            crossOrigin: imageCrossOrigin,
+                          }
+                        : {},
+                      {
+                        controls: true,
+                        autoPlay: true,
+                        className: ''.concat(
+                          imageClass,
+                          ' ril__image ril__video'
+                        ),
+                      },
+                      videoProps || {}
+                    ),
+                    /*#__PURE__*/ React__default['default'].createElement(
+                      'source',
+                      {
+                        src: mainSrcVideo.src,
+                        type: mainSrcVideo.mimeType,
+                      }
+                    )
+                  )
               ),
               prevSrc &&
                 /*#__PURE__*/ React__default['default'].createElement(

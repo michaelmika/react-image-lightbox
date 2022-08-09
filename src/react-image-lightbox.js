@@ -1402,59 +1402,41 @@ class ReactImageLightbox extends Component {
         );
       } else if (this.props[srcType + 'Video']) {
         // Is Video
-        if (!imagePreviewForVideos || playVideo) {
-          images.push(
-            <video
+
+        images.push(
+          <>
+            <img
               {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
-              controls
-              autoPlay
-              className={`${imageClass} ril__image ril__video`}
-              {...(videoProps || {})}
+              className={`${imageClass} ril__image`}
+              onDoubleClick={this.handleImageDoubleClick}
+              onWheel={this.handleImageMouseWheel}
+              onDragStart={e => e.preventDefault()}
+              style={imageStyle}
+              src={imageSrc}
+              key={imageSrc + keyEndings[srcType]}
+              alt={
+                typeof imageTitle === 'string' ? imageTitle : translate('Image')
+              }
+              draggable={false}
+              onClick={() => this.setState({ playVideo: true })}
+            />
+            <div
+              className="ril__playIcon"
+              onClick={() => this.setState({ playVideo: true })}
             >
-              <source
-                src={this.props[srcType + 'Video'].src}
-                type={this.props[srcType + 'Video'].mimeType}
-              />
-            </video>
-          );
-        } else {
-          images.push(
-            <>
-              <img
-                {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
-                className={`${imageClass} ril__image`}
-                onDoubleClick={this.handleImageDoubleClick}
-                onWheel={this.handleImageMouseWheel}
-                onDragStart={e => e.preventDefault()}
-                style={imageStyle}
-                src={imageSrc}
-                key={imageSrc + keyEndings[srcType]}
-                alt={
-                  typeof imageTitle === 'string'
-                    ? imageTitle
-                    : translate('Image')
-                }
-                draggable={false}
-                onClick={() => this.setState({ playVideo: true })}
-              />
-              <div
-                className="ril__playIcon"
-                onClick={() => this.setState({ playVideo: true })}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
-                  <polygon
-                    className="ril__playIcon__svg"
-                    points="9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69"
-                  />
-                  <path
-                    className="ril__playIcon__svg"
-                    d="M26,13A13,13,0,1,1,13,0,13,13,0,0,1,26,13ZM13,2.18A10.89,10.89,0,1,0,23.84,13.06,10.89,10.89,0,0,0,13,2.18Z"
-                  />
-                </svg>
-              </div>
-            </>
-          );
-        }
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+                <polygon
+                  className="ril__playIcon__svg"
+                  points="9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69"
+                />
+                <path
+                  className="ril__playIcon__svg"
+                  d="M26,13A13,13,0,1,1,13,0,13,13,0,0,1,26,13ZM13,2.18A10.89,10.89,0,1,0,23.84,13.06,10.89,10.89,0,0,0,13,2.18Z"
+                />
+              </svg>
+            </div>
+          </>
+        );
       } else {
         images.push(
           <img
@@ -1558,6 +1540,17 @@ class ReactImageLightbox extends Component {
             onClick={clickOutsideToClose ? this.closeIfClickInner : undefined}
           >
             {images}
+            {((mainSrcVideo && !imagePreviewForVideos) || playVideo) && (
+              <video
+                {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
+                controls
+                autoPlay
+                className={`${imageClass} ril__image ril__video`}
+                {...(videoProps || {})}
+              >
+                <source src={mainSrcVideo.src} type={mainSrcVideo.mimeType} />
+              </video>
+            )}
           </div>
 
           {prevSrc && (

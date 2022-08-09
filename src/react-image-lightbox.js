@@ -1216,7 +1216,7 @@ class ReactImageLightbox extends Component {
 
     // With animation
     // Start closing animation
-    this.setState({ isClosing: true });
+    this.setState({ isClosing: true, playVideo: false });
 
     // Perform the actual closing at the end of the animation
     this.setTimeout(closeLightbox, this.props.animationDuration);
@@ -1228,6 +1228,7 @@ class ReactImageLightbox extends Component {
       zoomLevel: MIN_ZOOM_LEVEL,
       offsetX: 0,
       offsetY: 0,
+      playVideo: false,
     };
 
     // Enable animated states

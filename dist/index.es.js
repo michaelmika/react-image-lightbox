@@ -1788,6 +1788,7 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
 
           this.setState({
             isClosing: true,
+            playVideo: false,
           }); // Perform the actual closing at the end of the animation
 
           this.setTimeout(closeLightbox, this.props.animationDuration);
@@ -1803,6 +1804,7 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
             zoomLevel: MIN_ZOOM_LEVEL,
             offsetX: 0,
             offsetY: 0,
+            playVideo: false,
           }; // Enable animated states
 
           if (

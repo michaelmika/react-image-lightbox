@@ -1878,7 +1878,8 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
             reactModalProps = _this$props.reactModalProps,
             loader = _this$props.loader,
             mainVideo = _this$props.mainVideo,
-            imagePreviewForVideos = _this$props.imagePreviewForVideos;
+            imagePreviewForVideos = _this$props.imagePreviewForVideos,
+            videoProps = _this$props.videoProps;
           var _this$state = this.state,
             zoomLevel = _this$state.zoomLevel,
             offsetX = _this$state.offsetX,
@@ -2027,13 +2028,23 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                 images.push(
                   /*#__PURE__*/ React__default['default'].createElement(
                     'video',
-                    {
-                      controls: true,
-                      className: ''.concat(
-                        imageClass,
-                        ' ril__image ril__video'
-                      ),
-                    },
+                    _extends(
+                      {},
+                      imageCrossOrigin
+                        ? {
+                            crossOrigin: imageCrossOrigin,
+                          }
+                        : {},
+                      {
+                        controls: true,
+                        autoPlay: true,
+                        className: ''.concat(
+                          imageClass,
+                          ' ril__image ril__video'
+                        ),
+                      },
+                      videoProps || {}
+                    ),
                     /*#__PURE__*/ React__default['default'].createElement(
                       'source',
                       {
@@ -2544,6 +2555,7 @@ ReactImageLightbox.propTypes = {
     mimeType: PropTypes__default['default'].string,
   }),
   imagePreviewForVideos: PropTypes__default['default'].bool,
+  videoProps: PropTypes__default['default'].shape({}),
   //-----------------------------
   // Image thumbnail sources
   //-----------------------------
@@ -2658,6 +2670,7 @@ ReactImageLightbox.defaultProps = {
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
   mainVideo: null,
+  videoProps: {},
   imagePreviewForVideos: false,
   nextLabel: 'Next image',
   nextSrc: null,

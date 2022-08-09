@@ -1285,6 +1285,7 @@ class ReactImageLightbox extends Component {
       loader,
       mainVideo,
       imagePreviewForVideos,
+      videoProps,
     } = this.props;
     const {
       zoomLevel,
@@ -1401,7 +1402,13 @@ class ReactImageLightbox extends Component {
         // Is Video
         if (!imagePreviewForVideos || playVideo) {
           images.push(
-            <video controls className={`${imageClass} ril__image ril__video`}>
+            <video
+              {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
+              controls
+              autoPlay
+              className={`${imageClass} ril__image ril__video`}
+              {...(videoProps || {})}
+            >
               <source src={mainVideo.src} type={mainVideo.mimeType} />
             </video>
           );
@@ -1703,7 +1710,7 @@ ReactImageLightbox.propTypes = {
     mimeType: PropTypes.string,
   }),
   imagePreviewForVideos: PropTypes.bool,
-
+  videoProps: PropTypes.shape({}),
   //-----------------------------
   // Image thumbnail sources
   //-----------------------------
@@ -1849,6 +1856,7 @@ ReactImageLightbox.defaultProps = {
   keyRepeatLimit: 180,
   mainSrcThumbnail: null,
   mainVideo: null,
+  videoProps: {},
   imagePreviewForVideos: false,
   nextLabel: 'Next image',
   nextSrc: null,

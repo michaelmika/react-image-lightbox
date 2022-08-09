@@ -2074,16 +2074,17 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                       /*#__PURE__*/ React.createElement(
                         'svg',
                         {
-                          width: '50',
-                          height: '50',
                           xmlns: 'http://www.w3.org/2000/svg',
-                          fillRule: 'evenodd',
-                          clipRule: 'evenodd',
-                          fill: 'white',
+                          viewBox: '0 0 26 26',
                         },
+                        /*#__PURE__*/ React.createElement('polygon', {
+                          className: 'ril__playIcon__svg',
+                          points: '9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69',
+                        }),
                         /*#__PURE__*/ React.createElement('path', {
+                          className: 'ril__playIcon__svg',
                           d:
-                            'M23 12l-22 12v-24l22 12zm-21 10.315l18.912-10.315-18.912-10.315v20.63z',
+                            'M26,13A13,13,0,1,1,13,0,13,13,0,0,1,26,13ZM13,2.18A10.89,10.89,0,1,0,23.84,13.06,10.89,10.89,0,0,0,13,2.18Z',
                         })
                       )
                     )

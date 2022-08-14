@@ -2009,7 +2009,7 @@ var ReactImageLightbox = /*#__PURE__*/ (function(_Component) {
                   })
                 )
               );
-            } else if (_this17.props[srcType + 'Video']) {
+            } else if (_this17.props.mainVideoSrc && srcType === 'mainSrc') {
               // Is Video
               images.push(
                 /*#__PURE__*/ React.createElement(

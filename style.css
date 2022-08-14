@@ -65,6 +65,7 @@
   width: 50px;
   height: 50px;
   z-index: 3;
+  transform: unset !important;
 }
 .ril__playIcon__svg {
   transition: 1s;
